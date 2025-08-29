@@ -6,26 +6,20 @@ from dotenv import load_dotenv
 
 from app.services.s3_client import S3Client
 
+from app.download_requests.controllers.v1.routes import router as download_requests_router_v1
+
 # Load environment variables from .env file
 load_dotenv()
 
-s3_client = S3Client()
+#s3_client = S3Client()
 
 app = FastAPI()
+
+app.include_router(download_requests_router_v1)
 
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
 
-
-@app.post("/yt-video/download")
-def download_yt_video(url: str, format: Union[str, None] = None):
-    opts = {
-        "outtmpl": "%(title)s.%(ext)s",
-        "format": format if format else "best",
-    }
-    with YoutubeDL(opts) as ydl:
-        info = ydl.extract_info(url, download=True)
-    return {"status": "downloaded", "title": info.get("title"), "id": info.get("id")}
 
