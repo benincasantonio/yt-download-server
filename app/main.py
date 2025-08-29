@@ -28,3 +28,4 @@ def download_yt_video(url: str, format: Union[str, None] = None):
     with YoutubeDL(opts) as ydl:
         info = ydl.extract_info(url, download=True)
     return {"status": "downloaded", "title": info.get("title"), "id": info.get("id")}
+

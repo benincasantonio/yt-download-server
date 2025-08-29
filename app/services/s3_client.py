@@ -1,9 +1,11 @@
 import os
+
+import logging
+from typing import Optional
+
 import boto3
 from botocore.exceptions import ClientError, NoCredentialsError
 from botocore.config import Config
-from typing import Optional
-import logging
 
 logger = logging.getLogger(__name__)
 
