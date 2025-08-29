@@ -49,8 +49,8 @@ class S3Client:
             self.client.head_bucket(Bucket=self.bucket_name)
             logger.info(f"Bucket '{self.bucket_name}' already exists")
         except ClientError as e:
-            error_code = int(e.response['Error']['Code'])
-            if error_code == 404:
+            error_code = e.response['Error']['Code']
+            if error_code in ("NoSuchBucket", "404"):
                 try:
                     self.client.create_bucket(Bucket=self.bucket_name)
                     logger.info(f"Created bucket '{self.bucket_name}'")
