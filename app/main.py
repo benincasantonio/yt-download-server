@@ -1,8 +1,15 @@
 from typing import Union
 
 from fastapi import FastAPI
-
 from yt_dlp import YoutubeDL
+from dotenv import load_dotenv
+
+from app.services.s3_client import S3Client
+
+# Load environment variables from .env file
+load_dotenv()
+
+s3_client = S3Client()
 
 app = FastAPI()
 
