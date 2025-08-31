@@ -31,10 +31,7 @@ from contextlib import asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup code
     await init_db()
-    await DownloadRequestRepository.create(
-        {"url": "https://example.com/video.mp4", "status": DownloadStatus.REGISTERED.value}
-    )
-    print("Database initialized and sample data inserted.")
+    print("Database initialized")
     yield
     # Shutdown code
     # Close any resources if needed

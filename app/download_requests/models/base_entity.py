@@ -6,6 +6,10 @@ from beanie import Document, Indexed, before_event, Insert, Replace
 from pydantic import Field
 
 
+def get_current_utc_time():
+    return datetime.now(timezone.utc)
+
+
 class BaseEntity(ABC, Document):
     """
     Abstract base class that provides common fields for all entity models
@@ -13,8 +17,8 @@ class BaseEntity(ABC, Document):
 
     deleted: bool = Field(default=False)
     deletedAt: Optional[datetime] = None
-    createdAt: Annotated[datetime, Indexed()] = Field(default=lambda: datetime.now(timezone.utc))
-    updatedAt: datetime = Field(default=lambda: datetime.now(timezone.utc))
+    createdAt: Annotated[datetime, Indexed()] = Field(default_factory=get_current_utc_time)
+    updatedAt: datetime = Field(default_factory=get_current_utc_time)
 
     @before_event(Insert)
     @before_event(Replace)

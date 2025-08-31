@@ -7,17 +7,17 @@ from app.download_requests.schemas.download_request_create_schema import Downloa
 
 class DownloadRequestRepository:
     @staticmethod
-    async def create(data: DownloadRequestCreateSchema) -> dict:
+    async def create(data: DownloadRequestCreateSchema) -> DownloadRequestEntity:
             
         entity = DownloadRequestEntity(
             url=data.url,
-            status=DownloadStatus.REGISTERED.value,
+            status=DownloadStatus.REGISTERED,
             image_url=None
         )
 
         await entity.insert()
 
-        return entity.model_dump()
+        return entity
 
     @staticmethod
     async def find_by_id(request_id: str) -> DownloadRequestEntity | None:
