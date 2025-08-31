@@ -1,7 +1,7 @@
 from pyexpat.errors import messages
 
 from fastapi import APIRouter
-import app.config as config
+import app.config.config as config
 
 router = APIRouter(prefix=f"{config.API_BASE_PATH}/v1/download-requests", tags=["Download Requests V1"])
 
