@@ -20,3 +20,4 @@ async def init_db():
 
     await init_beanie(database=db, document_models=[DownloadRequestEntity])
     logging.info("Connected to MongoDB")
+    return db
