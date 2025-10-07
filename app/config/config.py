@@ -1,4 +1,4 @@
 from typing import Final
 
 
-API_BASE_PATH: Final[str] = "/api/"
+API_BASE_PATH: Final[str] = "/api"

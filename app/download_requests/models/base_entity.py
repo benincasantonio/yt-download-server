@@ -31,8 +31,23 @@ class BaseEntity(ABC, Document):
         await self.save()
 
     @classmethod
-    def active_entities_query(cls):
-        return cls.find(cls.deleted == False)
+    def find_active(cls, **kwargs):
+        """
+        Returns a query that filters out deleted entities
+        :param kwargs: Additional query parameters
+        :return:
+        """
+        kwargs.pop('deleted', None)
+
+        base_query = {
+            'deleted': False
+        }
+
+        base_query.update(kwargs)
+        print(base_query)
+        return cls.find(base_query)
+
+
 
 
 

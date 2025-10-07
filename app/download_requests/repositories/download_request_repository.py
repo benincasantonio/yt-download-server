@@ -1,4 +1,6 @@
-from collections.abc import Collection
+from typing import Optional
+
+from beanie import PydanticObjectId
 
 from app.download_requests.models.download_request_entity import DownloadRequestEntity
 from app.download_requests.enums.download_status import DownloadStatus
@@ -20,18 +22,27 @@ class DownloadRequestRepository:
         return entity
 
     @staticmethod
-    async def find_by_id(request_id: str) -> DownloadRequestEntity | None:
-        return await DownloadRequestEntity.get(request_id)
+    async def find_by_id(request_id: str) -> Optional[DownloadRequestEntity]:
+        object_id = PydanticObjectId(request_id)
+        return await DownloadRequestEntity.find_active(_id=object_id).first_or_none()
 
     @staticmethod
     async def find_all() -> list[DownloadRequestEntity]:
-        return await DownloadRequestEntity.find().to_list()
+        return await DownloadRequestEntity.find_active().to_list()
 
     @staticmethod
     async def update(request_id: str, data: dict) -> DownloadRequestEntity | None:
-        entity = await DownloadRequestEntity.get(request_id)
+        entity = await DownloadRequestRepository.find_by_id(request_id)
         if entity:
             entity.update(**data)
             await entity.save()
             return entity
         return None
+
+    @staticmethod
+    async def delete(request_id: str) -> bool:
+        entity = await DownloadRequestRepository.find_by_id(request_id)
+        if entity:
+            await entity.soft_delete()
+            return True
+        return False
