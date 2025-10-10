@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Optional
 
 from beanie import PydanticObjectId
@@ -31,10 +33,11 @@ class DownloadRequestRepository:
         return await DownloadRequestEntity.find_active().to_list()
 
     @staticmethod
-    async def update(request_id: str, data: dict) -> DownloadRequestEntity | None:
+    async def update(request_id: str, data: dict) -> Optional[DownloadRequestEntity]:
         entity = await DownloadRequestRepository.find_by_id(request_id)
         if entity:
-            entity.update(**data)
+            for key, value in data.items():
+                setattr(entity, key, value)
             await entity.save()
             return entity
         return None
