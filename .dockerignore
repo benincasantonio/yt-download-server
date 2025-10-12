@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Downloaded files - will be mounted as volume
+downloads/
+
+# MongoDB
+mongodb-keyfile
+
+# Environment
+.env
+.env.example
+
+# Documentation
+README.md
+CLAUDE.md
