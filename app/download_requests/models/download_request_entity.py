@@ -12,12 +12,12 @@ class DownloadRequestEntity(BaseEntity):
     url: str
     title: Optional[str] = None
     status: Annotated[DownloadStatus, Indexed()]
-    image_url: Optional[str] = None
+    imageUrl: Optional[str] = None
     videos: list[DownloadRequestVideo] = Field(default_factory=list)
 
-    is_playlist: Optional[bool] = Field(default=False)
-    playlist_count: Optional[int] = None
-    downloaded_count: Optional[int] = None
+    isPlaylist: Optional[bool] = Field(default=False)
+    playlistCount: Optional[int] = None
+    downloadedCount: Optional[int] = None
 
     class Settings:
         name = "download_requests"

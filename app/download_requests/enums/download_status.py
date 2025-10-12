@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class DownloadStatus(str, Enum):
-    REGISTERED = 'registered'
-    IN_PROGRESS = 'in_progress'
-    COMPLETED = 'completed'
-    FAILED = 'failed'
+    REGISTERED = 'Registered'
+    IN_PROGRESS = 'InProgress'
+    COMPLETED = 'Completed'
+    FAILED = 'Failed'

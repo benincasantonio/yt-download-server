@@ -16,7 +16,7 @@ class DownloadRequestRepository:
         entity = DownloadRequestEntity(
             url=data.url,
             status=DownloadStatus.REGISTERED,
-            image_url=None
+            imageUrl=None
         )
 
         await entity.insert()

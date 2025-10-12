@@ -87,7 +87,7 @@ class YouTubeDownloadService:
                             id=video_id,
                             title=entry.get('title', 'Unknown'),
                             path=file_path,
-                            image_url=entry.get('thumbnail', ''),
+                            imageUrl=entry.get('thumbnail', ''),
                             duration=entry.get('duration', 0)
                         ))
 
@@ -110,7 +110,7 @@ class YouTubeDownloadService:
                         id=video_id,
                         title=info_dict.get('title', 'Unknown'),
                         path=file_path,
-                        image_url=info_dict.get('thumbnail', ''),
+                        imageUrl=info_dict.get('thumbnail', ''),
                         duration=info_dict.get('duration', 0)
                     )
 
@@ -131,22 +131,22 @@ class YouTubeDownloadService:
     async def _update_download_video_info(result: Dict[str, Any], download_request: DownloadRequestEntity):
         update_data = {
             "status": DownloadStatus.COMPLETED,
-            "is_playlist": result['is_playlist'],
+            "isPlaylist": result['is_playlist'],
             "videos": [video.model_dump() for video in result['videos']]
         }
 
         if result['is_playlist']:
             update_data['playlist_count'] = result['playlist_count']
-            update_data['downloaded_count'] = result['downloaded_count']
+            update_data['downloadedCount'] = result['downloaded_count']
             update_data['title'] = result.get('playlist_title')
-            update_data['image_url'] = result.get('playlist_thumbnail')
+            update_data['imageUrl'] = result.get('playlist_thumbnail')
         else:
             if result['videos']:
                 update_data['title'] = result['videos'][0].title
-                update_data['image_url'] = result['videos'][0].image_url
+                update_data['imageUrl'] = result['videos'][0].image_url
 
         await DownloadRequestRepository.update(str(download_request.id), update_data)
 
         log_msg = f"Successfully completed download: {download_request.id}"
         if result['is_playlist']:
-            log_msg += f" - Playlist with {result['downloaded_count']} videos"
+            log_msg += f" - Playlist with {result['downloadedCount']} videos"
