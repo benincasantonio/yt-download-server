@@ -57,6 +57,10 @@ class YouTubeDownloadService:
                 'quiet': False,
                 'no_warnings': False,
                 'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
+                'keepvideo': False,  # Don't keep intermediate video files after merging
+                'postprocessor_args': {
+                    'ffmpeg': ['-movflags', 'faststart']  # Optimize for streaming
+                },
             }
 
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -136,14 +140,14 @@ class YouTubeDownloadService:
         }
 
         if result['is_playlist']:
-            update_data['playlist_count'] = result['playlist_count']
+            update_data['playlistCount'] = result['playlist_count']
             update_data['downloadedCount'] = result['downloaded_count']
             update_data['title'] = result.get('playlist_title')
             update_data['imageUrl'] = result.get('playlist_thumbnail')
         else:
             if result['videos']:
                 update_data['title'] = result['videos'][0].title
-                update_data['imageUrl'] = result['videos'][0].image_url
+                update_data['imageUrl'] = result['videos'][0].imageUrl
 
         await DownloadRequestRepository.update(str(download_request.id), update_data)
 

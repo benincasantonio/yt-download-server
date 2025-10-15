@@ -24,7 +24,7 @@ async def get_download_request(request_id: str) -> DownloadRequestDTO:
 
 @router.post("/")
 async def create_download_request(request: DownloadRequestCreateSchema) -> DownloadRequestDTO:
-    if(not validate_url(request.url)):
+    if not validate_url(request.url):
         raise HTTPException(status_code=400, detail="Invalid URL format")
 
     entity = await DownloadRequestRepository.create(request)
