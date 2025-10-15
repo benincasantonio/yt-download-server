@@ -1,4 +1,3 @@
-
 # Project Overview
 
 This project is a Python-based web service for downloading YouTube videos. It is built with FastAPI and uses MongoDB to store download requests and `yt-dlp` to handle the video downloads. The application is designed to be run in a Docker environment and includes a main web server, a download worker, a MinIO S3-compatible object storage, and a MongoDB database.
@@ -48,4 +47,4 @@ The project is designed to be run with Docker and Docker Compose.
 *   **Code Style:** The project follows the PEP 8 style guide for Python code.
 *   **Typing:** The project uses type hints for all function signatures and variables.
 *   **API Documentation:** The API is documented using the OpenAPI standard, and the documentation is available at `http://localhost:8000/docs`.
-*   **Testing:** (TODO: Add information about testing practices if available)
+*   **Testing:** Tests are written using the `pytest` framework and are located in the same folder as the file being tested.
